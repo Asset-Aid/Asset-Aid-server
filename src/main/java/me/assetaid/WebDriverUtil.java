@@ -10,5 +10,13 @@ import org.springframework.util.ObjectUtils;
 @Component
 public class WebDriverUtil {
     private static String WEB_DRIVER_PATH;
-    if (ObjectUtils.isEmpty(System.getProperty("web")))
+    if (ObjectUtils.isEmpty(System.getProperty("webdriver.chrome.driver"))){
+        System.setProperty("webdriver.chrome.driver", WEB_DRIVER_PATH);
+    }
+
+    //webDriver 옵션 설정
+    ChromeOptions chromeOptions = new ChromeOptions();
+    chromeOptions.setHeadless(true);
+    chromeOptions.addArguments("--lang=ko")
+    chromeOptions.addArguments("")
 }
