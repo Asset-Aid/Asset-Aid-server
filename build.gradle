@@ -14,10 +14,10 @@ repositories {
 dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation'org.springframework.boot:spring-boot-starter-data-jpa'
-    annotationProcessor'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.seleniumhq.selenium:selenium-java:4.6.0'
-    implementation 'mysql:mysql-connector-java:8.0.34'  // MySQL 드라이버
+    implementation 'mysql:mysql-connector-java:8.0.33'
 }
 
 test {

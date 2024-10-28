@@ -1,4 +1,4 @@
-package me.assetaid;
+package me.assetaid.crawler;
 
 import java.time.Duration;
 import org.openqa.selenium.WebDriver;
