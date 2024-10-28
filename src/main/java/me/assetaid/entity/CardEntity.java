@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "card")
-public class cardEntity {
+public class CardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cardId;
@@ -24,5 +24,5 @@ public class cardEntity {
 
     // 연관관계 설정
     @OneToMany(mappedBy = "card")
-    private List<bookmarkEntity> bookmarks;
+    private List<BookmarkEntity> bookmarks;
 }

@@ -5,24 +5,25 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "saving")
-public class savingEntity {
+@Table(name = "deposit")
+public class DepositEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer savingId;
+    private Integer depositId;
 
-    private String savingName;
+    private String depositName;
     private String bank;
     private String joinWay;
     private Date startAt;
     private Date endAt;
-    private String savingInfo;
-    private String rsrvRateType;
-    private Integer rsrvRate;
+    private String depositInfo;
+    private String intRateType;
+    private Integer intRate;
     private Integer saveTerm;
     private String saveTermType;
 
     // 연관관계 설정
-    @OneToMany(mappedBy = "saving")
-    private List<bookmarkEntity> bookmarks;
+    @OneToMany(mappedBy = "deposit")
+    private List<BookmarkEntity> bookmarks;
+
 }

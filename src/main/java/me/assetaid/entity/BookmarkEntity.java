@@ -11,17 +11,17 @@ public class BookmarkEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private userEntity user;
+    private UserEntity user;
 
     @ManyToOne
     @JoinColumn(name = "card_id")
-    private cardEntity card;
+    private CardEntity card;
 
     @ManyToOne
     @JoinColumn(name = "deposit_id")
-    private depositEntity deposit;
+    private DepositEntity deposit;
 
     @ManyToOne
     @JoinColumn(name = "saving_id")
-    private savingEntity saving;
+    private SavingEntity saving;
 }

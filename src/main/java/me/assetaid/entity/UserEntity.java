@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class userEntity {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
@@ -21,13 +21,13 @@ public class userEntity {
     private Date birthday;
 
     @OneToMany(mappedBy = "user")
-    private List<goalEntity> goals;
+    private List<GoalEntity> goals;
 
     @OneToMany(mappedBy = "user")
-    private List<bookmarkEntity> bookmarks;
+    private List<BookmarkEntity> bookmarks;
 
     @OneToMany(mappedBy = "user")
-    private List<notificationEntity> notifications;
+    private List<NotificationEntity> notifications;
 
     @OneToOne(mappedBy = "user")
     private Preference preference;
