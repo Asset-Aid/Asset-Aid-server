@@ -30,5 +30,5 @@ public class UserEntity {
     private List<NotificationEntity> notifications;
 
     @OneToOne(mappedBy = "user")
-    private Preference preference;
+    private PreferenceEntity preference;
 }

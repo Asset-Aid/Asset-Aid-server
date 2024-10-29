@@ -16,7 +16,7 @@ public class WebDriverUtil {
     // 생성자에서 WebDriver 경로 설정
     public WebDriverUtil(@Value("${driver.chrome.driver_path}") String path) {
         if (ObjectUtils.isEmpty(System.getProperty("webdriver.chrome.driver"))) {
-            System.setProperty("webdriver.chrome.driver", path);
+            System.setProperty("webdriver.chrome.driver", "C:\\Users\\psm1s\\Downloads\\chromedriver\\chromedriver-win64");
         }
         WEB_DRIVER_PATH = path;
     }

@@ -3,6 +3,8 @@ package me.assetaid.entity;
 import jakarta.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "goal")
 public class GoalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
