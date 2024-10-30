@@ -1,66 +1,80 @@
 package me.assetaid.crawler;
 
+import me.assetaid.crawler.WebDriverUtil;
+import me.assetaid.entity.CardEntity;
+import me.assetaid.repository.CardRepository;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+@Component
 public class Crawler {
     private WebDriver driver;
-    private List<WebElement> webElementList;
-    private String baseUrl = "https://new-m.pay.naver.com/affiliate-card/home"; // 시작 페이지 URL
-    private String linkQuery = ".ProductListItem_item__RsBV_"; // 각 상세 페이지로 연결되는 링크의 CSS 선택자 (a 태그 포함)
-    private String contentQuery = ".FlexibleLayout-module_inner__hGuDc.FlexibleLayout-module_type-full-height__4230p.Detail_article__MtRYb"; // 상세 페이지에서 크롤링할 요소의 CSS 선택자
+    private final CardRepository cardRepository;
+    private final WebDriverUtil webDriverUtil;
+    private final Logger logger = Logger.getLogger(Crawler.class.getName());
 
-    // 생성자에서 WebDriver 초기화
-    public Crawler(WebDriverUtil webDriverUtil) {
-        this.driver = webDriverUtil.createDriver();
-        this.webElementList = new ArrayList<>();
+    private String baseUrl = "https://new-m.pay.naver.com/affiliate-card/home";
+    private String linkQuery = ".ProductListItem_item__RsBV_";
+    private String contentQuery = ".FlexibleLayout-module_inner__hGuDc.FlexibleLayout-module_type-full-height__4230p.Detail_article__MtRYb";
+
+    @Autowired
+    public Crawler(WebDriverUtil webDriverUtil, CardRepository cardRepository) {
+        this.webDriverUtil = webDriverUtil;
+        this.cardRepository = cardRepository;
     }
 
-    // 메인 페이지에서 링크 수집 및 각 링크에 대해 크롤링 수행
     public void crawlAllLinks() {
+        this.driver = webDriverUtil.createDriver();
         if (ObjectUtils.isEmpty(driver)) {
+            logger.warning("WebDriver 인스턴스를 생성하지 못했습니다.");
             return;
         }
 
-        // 1. 메인 페이지 열기 및 링크 수집
-        driver.get(baseUrl);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        List<WebElement> linkElements = driver.findElements(By.cssSelector(linkQuery));
+        try {
+            driver.get(baseUrl);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+            List<WebElement> linkElements = driver.findElements(By.cssSelector(linkQuery));
+            logger.info("총 " + linkElements.size() + "개의 링크를 발견했습니다.");
 
-        // 2. 수집한 링크들 순회하면서 크롤링 수행
-        for (WebElement linkElement : linkElements) {
-            String detailUrl = linkElement.getAttribute("href");
-            if (detailUrl != null && !detailUrl.isEmpty()) {
-                // 각 상세 페이지 접근
-                driver.get(detailUrl);
+            for (WebElement linkElement : linkElements) {
+                String detailUrl = linkElement.getAttribute("href");
+                if (detailUrl != null && !detailUrl.isEmpty()) {
+                    driver.get(detailUrl);
+                    Thread.sleep(2000);
 
-                try {
-                    Thread.sleep(2000); // 명시적 대기 시간
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    List<WebElement> contentElements = driver.findElements(By.cssSelector(contentQuery));
+                    StringBuilder contentBuilder = new StringBuilder();
+                    for (WebElement contentElement : contentElements) {
+                        contentBuilder.append(contentElement.getText()).append("\n");
+                    }
+
+                    CardEntity cardEntity = new CardEntity();
+                    cardEntity.setUrl(detailUrl);
+                    cardEntity.setContent(contentBuilder.toString());
+                    cardRepository.save(cardEntity);  // 데이터베이스에 저장
+                    logger.info("카드 정보가 저장되었습니다: " + cardEntity);
                 }
-
-                // 상세 페이지에서 크롤링할 데이터 수집
-                List<WebElement> contentElements = driver.findElements(By.cssSelector(contentQuery));
-                System.out.println("URL: " + detailUrl);
-                for (WebElement contentElement : contentElements) {
-                    System.out.println(contentElement.getText());
-                }
-                System.out.println("---------------------------------");
             }
+        } catch (Exception e) {
+            logger.severe("크롤링 중 오류 발생: " + e.getMessage());
+        } finally {
+            quit();
         }
     }
 
-    // WebDriver 종료 메서드
+
     public void quit() {
-        if (!ObjectUtils.isEmpty(driver)) {
+        if (driver != null) {
             driver.quit();
+            driver = null;
         }
     }
 }

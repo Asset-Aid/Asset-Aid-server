@@ -18,6 +18,10 @@ public class CardEntity {
     private Integer cardLimit;
     private String bank;
     private String cardName;
+    private String url;
+
+    @Column(length = 5000)
+    private String content;
 
     @Column(length = 1000)
     private String cardImage;
@@ -25,4 +29,20 @@ public class CardEntity {
     // 연관관계 설정
     @OneToMany(mappedBy = "card")
     private List<BookmarkEntity> bookmarks;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }
