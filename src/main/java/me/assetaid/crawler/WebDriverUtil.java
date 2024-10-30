@@ -16,7 +16,7 @@ public class WebDriverUtil {
     // 생성자에서 WebDriver 경로 설정
     public WebDriverUtil(@Value("${driver.chrome.driver_path}") String path) {
         if (ObjectUtils.isEmpty(System.getProperty("webdriver.chrome.driver"))) {
-            System.setProperty("webdriver.chrome.driver", "C:\\Users\\psm1s\\Downloads\\chromedriver\\chromedriver-win64");
+            System.setProperty("webdriver.chrome.driver", "C:\\Users\\psm1s\\Desktop\\chromedriver.exe");
         }
         WEB_DRIVER_PATH = path;
     }
@@ -29,7 +29,6 @@ public class WebDriverUtil {
         chromeOptions.addArguments("--no-sandbox");
         chromeOptions.addArguments("--disable-dev-shm-usage");
         chromeOptions.addArguments("--disable-gpu");
-        chromeOptions.setCapability("ignoreProtectedModeSettings", true);
 
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));

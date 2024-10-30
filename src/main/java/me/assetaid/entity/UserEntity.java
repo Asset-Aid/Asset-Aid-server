@@ -1,5 +1,6 @@
 package me.assetaid.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ public class UserEntity {
     private String password;
 
     private String nickname;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
     @OneToMany(mappedBy = "user")
