@@ -21,6 +21,8 @@ public class DepositEntity {
     private Integer intRate;
     private Integer saveTerm;
     private String saveTermType;
+    private Integer limit;
+    private String contents;
 
     // 연관관계 설정
     @OneToMany(mappedBy = "deposit")
