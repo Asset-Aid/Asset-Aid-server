@@ -1,5 +1,12 @@
 package me.assetaid.parsing;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import me.assetaid.entity.DepositEntity;
+import me.assetaid.entity.SavingEntity;
+import me.assetaid.repository.DepositRepository;
+import me.assetaid.repository.SavingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -13,8 +20,17 @@ import java.util.logging.Logger;
 
 @Service
 public class ApiParsing {
+
     private static final Logger logger = Logger.getLogger(ApiParsing.class.getName());
     private static Properties prop = new Properties();
+
+    @Autowired
+    private DepositRepository depositRepository;
+
+    @Autowired
+    private SavingRepository savingRepository;
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public ApiParsing() throws IOException {
         try (InputStream input = ApiParsing.class.getClassLoader().getResourceAsStream("config.properties")) {
@@ -34,16 +50,14 @@ public class ApiParsing {
         for (int pageNo = 1; pageNo <= totalPages; pageNo++) {
             String apiSavingUrl = buildApiSavingUrl(pageNo);
             String apiSavingResponse = getApiResponse(apiSavingUrl);
-            logger.info("적금 API - Page " + pageNo);
-            logger.info(apiSavingResponse);
+            saveSavingsData(apiSavingResponse);
         }
 
         // 예금 API
         for (int pageNo = 1; pageNo <= totalPages; pageNo++) {
             String apiDepositUrl = buildApiDepositUrl(pageNo);
             String apiDepositResponse = getApiResponse(apiDepositUrl);
-            logger.info("예금 API - Page " + pageNo);
-            logger.info(apiDepositResponse);
+            saveDepositData(apiDepositResponse);
         }
     }
 
@@ -85,7 +99,7 @@ public class ApiParsing {
 
         URL url = new URL(urlStr);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setInstanceFollowRedirects(true); // 리다이렉트를 자동으로 따르게 설정
+        conn.setInstanceFollowRedirects(true);
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
 
@@ -96,10 +110,9 @@ public class ApiParsing {
         if (responseCode >= 200 && responseCode <= 300) {
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         } else if (responseCode == 307) {
-            // 리다이렉트 URL로 재시도
             String redirectUrl = conn.getHeaderField("Location");
             if (redirectUrl != null) {
-                return getApiResponse(redirectUrl); // 재귀 호출로 리다이렉트 URL 처리
+                return getApiResponse(redirectUrl);
             } else {
                 return "리다이렉트 URL을 찾을 수 없습니다.";
             }
@@ -117,4 +130,45 @@ public class ApiParsing {
         return sb.toString();
     }
 
+    private void saveDepositData(String jsonResponse) throws IOException {
+        JsonNode rootNode = objectMapper.readTree(jsonResponse);
+        JsonNode baseList = rootNode.path("result").path("baseList");
+
+        for (JsonNode node : baseList) {
+            DepositEntity deposit = new DepositEntity();
+            deposit.setDepositId(node.path("fin_prdt_cd").asInt());
+            deposit.setBank(node.path("kor_co_nm").asText());
+            deposit.setDepositName(node.path("fin_prdt_nm").asText());
+            deposit.setJoinWay(node.path("join_way").asText());
+            deposit.setIntRate(node.path("mtrt_int").asInt());
+            deposit.setContents(node.path("spcl_cnd").asText() + " " + node.path("join_member").asText() + " " + node.path("etc_note").asText());
+            deposit.setLimitDeposit(node.path("max_limit").asInt());
+            deposit.setStartAt(node.path("dcls_strt_day").asText());
+            deposit.setEndAt(node.path("dcls_end_day").asText());
+
+            depositRepository.save(deposit);
+            logger.info("예금 데이터 저장 완료: " + deposit.toString());
+        }
+    }
+
+    private void saveSavingsData(String jsonResponse) throws IOException {
+        JsonNode rootNode = objectMapper.readTree(jsonResponse);
+        JsonNode baseList = rootNode.path("result").path("baseList");
+
+        for (JsonNode node : baseList) {
+            SavingEntity saving = new SavingEntity();
+            saving.setSavingId(node.path("fin_prdt_cd").asInt());
+            saving.setBank(node.path("kor_co_nm").asText());
+            saving.setSavingName(node.path("fin_prdt_nm").asText());
+            saving.setJoinWay(node.path("join_way").asText());
+            saving.setRsrvRate(node.path("mtrt_int").asInt());
+            saving.setContents(node.path("spcl_cnd").asText() + " " + node.path("join_member").asText() + " " + node.path("etc_note").asText());
+            saving.setLimitSaving(node.path("max_limit").asInt());
+            saving.setStartAt(node.path("dcls_strt_day").asText());
+            saving.setEndAt(node.path("dcls_end_day").asText());
+
+            savingRepository.save(saving);
+            logger.info("적금 데이터 저장 완료: " + saving.toString());
+        }
+    }
 }
