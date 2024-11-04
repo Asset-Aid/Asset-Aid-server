@@ -81,7 +81,7 @@ public class Crawler_credit {
 
                 WebElement cardCorpElement = cardElement.findElement(By.cssSelector(".card_corp"));
                 cardEntity.setBank(cardCorpElement.getText());
-
+                cardEntity.setCardType(0);
                 WebElement saleElement = cardElement.findElement(By.cssSelector(".sale"));
                 cardEntity.setBenefit(saleElement.getText());
 

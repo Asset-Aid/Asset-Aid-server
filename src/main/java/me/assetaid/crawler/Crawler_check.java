@@ -69,10 +69,9 @@ public class Crawler_check {
                 CardEntity cardEntity = new CardEntity();
                 cardEntity.setUrl(baseUrl);
 
-                // card_type을 1로 고정 설정
+
                 cardEntity.setCardType(1);
 
-                // in_for -> annual_fee_kor, annual_fee_for로 분리하여 저장
                 WebElement inForElement = cardElement.findElement(By.cssSelector(".in_for"));
                 String[] annualFees = inForElement.getText().split("/");
 
