@@ -1,19 +1,23 @@
 package me.assetaid;
 
-import me.assetaid.crawler.Crawler;
-import me.assetaid.crawler.WebDriverUtil;
+import me.assetaid.parsing.ApiParsing;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
 @SpringBootApplication
-public class Main {
+public class Main implements CommandLineRunner {
+
+    @Autowired
+    private ApiParsing apiParsing;
+
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
-        WebDriverUtil webDriverUtil = new WebDriverUtil("chromeDriverPath"); // WebDriverUtil 인스턴스 생성
-        Crawler crawler = new Crawler(webDriverUtil); // Crawler 인스턴스 생성
+    }
 
-        crawler.crawlAllLinks(); // 모든 링크를 동적으로 수집 및 크롤링 수행
-        crawler.quit();  // WebDriver 종료
+    @Override
+    public void run(String... args) throws Exception {
+        apiParsing.parseSavingsAndDeposits(); // 파싱 작업 수행
     }
 }
