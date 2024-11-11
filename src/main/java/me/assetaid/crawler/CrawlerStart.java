@@ -18,7 +18,6 @@ public class CrawlerStart implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // 크롤링 실행
         crawlerCredit.crawlAllLinks();
         crawlerCheck.crawlAllLinks();
     }
