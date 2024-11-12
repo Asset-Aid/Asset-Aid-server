@@ -1,6 +1,7 @@
 package me.assetaid.entity;
 
 import jakarta.persistence.*;
+import me.assetaid.user.repository.entity.UserEntity;
 
 @Entity
 @Table(name = "bookmark")

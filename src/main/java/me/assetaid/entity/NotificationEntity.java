@@ -1,6 +1,8 @@
 package me.assetaid.entity;
 
 import jakarta.persistence.*;
+import me.assetaid.user.repository.entity.UserEntity;
+
 import java.util.Date;
 
 @Entity
