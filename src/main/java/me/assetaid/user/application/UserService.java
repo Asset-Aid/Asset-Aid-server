@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -22,7 +20,7 @@ public class UserService {
      * @param userId 사용자 ID
      * @return UserEntity (사용자 정보)
      */
-    public UserEntity getUserById(UUID userId) {
+    public UserEntity getUserById(String userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
     }
@@ -32,7 +30,7 @@ public class UserService {
      * @param userId 사용자 ID
      * @return UserEntity (사용자 정보)
      */
-    public UserEntity findByUserId(UUID userId) {
+    public UserEntity findByUserId(String userId) {
         return userRepository.findByUserId(userId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
     }
@@ -62,7 +60,7 @@ public class UserService {
      * @param userId 삭제할 사용자 ID
      */
     @Transactional
-    public void deleteUser(UUID userId) {
+    public void deleteUser(String userId) {
         UserEntity user = getUserById(userId);
         userRepository.delete(user);
     }

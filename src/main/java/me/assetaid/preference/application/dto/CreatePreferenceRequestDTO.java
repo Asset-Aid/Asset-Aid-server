@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record CreatePreferenceRequestDTO(
-        UUID userId,
+        String userId,
         Integer availableAmount,
         Integer debt,
         Integer salary,

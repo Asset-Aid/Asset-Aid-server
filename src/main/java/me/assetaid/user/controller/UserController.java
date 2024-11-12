@@ -1,8 +1,8 @@
 package me.assetaid.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import me.assetaid.user.repository.UserRepository;
 import me.assetaid.user.repository.entity.UserEntity;
-import me.assetaid.repository.UserRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

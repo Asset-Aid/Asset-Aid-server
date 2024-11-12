@@ -6,11 +6,12 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
+@Table(name = "preference")
 public class PreferenceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID preferenceId;
+    private Integer preferenceId;
 
     private Integer availableAmount;
     private Integer debt;
@@ -35,11 +36,11 @@ public class PreferenceEntity {
         this.user = user;
     }
 
-    public UUID getPreferenceId() {
+    public Integer getPreferenceId() {
         return preferenceId;
     }
 
-    public void setPreferenceId(UUID preferenceId) {
+    public void setPreferenceId(Integer preferenceId) {
         this.preferenceId = preferenceId;
     }
 

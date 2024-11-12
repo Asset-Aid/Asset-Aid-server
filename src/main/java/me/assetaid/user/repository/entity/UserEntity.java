@@ -16,7 +16,7 @@ import java.util.UUID;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID userId;
+    private String userId;
 
     @Column(nullable = false)
     private String id;
@@ -42,11 +42,11 @@ public class UserEntity {
     private PreferenceEntity preference;
 
     // Getters and Setters
-    public UUID getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(UUID userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

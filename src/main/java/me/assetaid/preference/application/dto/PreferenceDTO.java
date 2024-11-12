@@ -1,14 +1,10 @@
 package me.assetaid.preference.application.dto;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import me.assetaid.preference.repository.entity.PreferenceEntity;
 
-import java.util.UUID;
-
 public record PreferenceDTO(
-        UUID preference_id,
-        UUID user_id,
+        Integer preference_id,
+        String user_id,
         Integer available_amount,
         Integer debt,
         Integer salary,
