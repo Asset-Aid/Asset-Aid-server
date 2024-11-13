@@ -4,6 +4,7 @@ import me.assetaid.goal.application.dto.CommonIdResponseDto;
 import me.assetaid.goal.application.dto.CreateGoalRequestDTO;
 import me.assetaid.goal.application.dto.GetGoalResponseDTO;
 import me.assetaid.goal.application.GoalService;
+import me.assetaid.goal.application.dto.GoalCountDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,5 +35,11 @@ public class GoalController {
         Optional<GetGoalResponseDTO> goalResponse = goalService.getGoalById(goalId);
         return goalResponse.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    // 목표 개수 조회
+    @GetMapping("/count")
+    public ResponseEntity<GoalCountDTO> countGoalsByType() {
+        GoalCountDTO goalCount = goalService.countGoalsByType();
+        return ResponseEntity.ok(goalCount);
     }
 }

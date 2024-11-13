@@ -3,6 +3,7 @@ package me.assetaid.goal.application;
 import me.assetaid.goal.application.dto.CommonIdResponseDto;
 import me.assetaid.goal.application.dto.CreateGoalRequestDTO;
 import me.assetaid.goal.application.dto.GetGoalResponseDTO;
+import me.assetaid.goal.application.dto.GoalCountDTO;
 import me.assetaid.goal.repository.GoalRepository;
 import me.assetaid.goal.repository.entity.GoalEntity;
 import me.assetaid.user.application.UserService;
@@ -45,5 +46,13 @@ public class GoalService {
     public Optional<GetGoalResponseDTO> getGoalById(Long goalId) {
         return goalRepository.findById(goalId)
                 .map(GetGoalResponseDTO::fromEntity);
+    }
+    // 목표 개수 조회
+    @Transactional(readOnly = true)
+    public GoalCountDTO countGoalsByType() {
+        long shortTermCount = goalRepository.countByShortTermGoals();
+        long longTermCount = goalRepository.countByLongTermGoals();
+
+        return new GoalCountDTO(shortTermCount, longTermCount);
     }
 }
