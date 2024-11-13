@@ -1,6 +1,8 @@
-package me.assetaid.entity;
+package me.assetaid.card.repository.entity;
 
 import jakarta.persistence.*;
+import me.assetaid.like.repository.entity.CardBookmarkEntity;
+
 import java.util.List;
 
 @Entity
@@ -29,7 +31,7 @@ public class CardEntity {
 
 
     @OneToMany(mappedBy = "card")
-    private List<BookmarkEntity> bookmarks;
+    private List<CardBookmarkEntity> bookmarks;
 
     public Integer getCardId() {
         return cardId;

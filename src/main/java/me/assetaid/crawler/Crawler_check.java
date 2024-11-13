@@ -1,7 +1,7 @@
 //package me.assetaid.crawler;
 //
-//import me.assetaid.entity.CardEntity;
-//import me.assetaid.repository.CardRepository;
+//import me.assetaid.card.repository.entity.CardEntity;
+//import me.assetaid.card.repository.CardRepository;
 //import org.openqa.selenium.By;
 //import org.openqa.selenium.WebDriver;
 //import org.openqa.selenium.WebElement;

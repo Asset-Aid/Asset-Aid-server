@@ -1,7 +1,8 @@
-package me.assetaid.entity;
+package me.assetaid.deposit.repository.entity;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import me.assetaid.like.repository.entity.DepositBookmarkEntity;
+
 import java.util.List;
 
 @Entity
@@ -25,7 +26,7 @@ public class DepositEntity {
     private String contents;
 
     @OneToMany(mappedBy = "deposit")
-    private List<BookmarkEntity> bookmarks;
+    private List<DepositBookmarkEntity> bookmarks;
 
     // Getters and Setters
     public Integer getDepositId() { return depositId; }
@@ -67,6 +68,6 @@ public class DepositEntity {
     public String getContents() { return contents; }
     public void setContents(String contents) { this.contents = contents; }
 
-    public List<BookmarkEntity> getBookmarks() { return bookmarks; }
-    public void setBookmarks(List<BookmarkEntity> bookmarks) { this.bookmarks = bookmarks; }
+    public List<DepositBookmarkEntity> getBookmarks() { return bookmarks; }
+    public void setBookmarks(List<DepositBookmarkEntity> bookmarks) { this.bookmarks = bookmarks; }
 }

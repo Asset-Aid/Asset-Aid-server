@@ -1,8 +1,8 @@
 package me.assetaid.user.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import me.assetaid.entity.BookmarkEntity;
 import me.assetaid.goal.repository.entity.GoalEntity;
 import me.assetaid.entity.NotificationEntity;
 import me.assetaid.preference.repository.entity.PreferenceEntity;
@@ -32,6 +32,7 @@ public class UserEntity {
     private List<GoalEntity> goals;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<BookmarkEntity> bookmarks;
 
     @OneToMany(mappedBy = "user")
@@ -40,7 +41,7 @@ public class UserEntity {
     @OneToOne(mappedBy = "user")
     private PreferenceEntity preference;
 
-    // Getters and Setters
+
     public String getUserId() {
         return userId;
     }

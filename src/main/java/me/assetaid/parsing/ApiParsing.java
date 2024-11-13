@@ -2,10 +2,10 @@ package me.assetaid.parsing;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import me.assetaid.entity.DepositEntity;
-import me.assetaid.entity.SavingEntity;
-import me.assetaid.repository.DepositRepository;
-import me.assetaid.repository.SavingRepository;
+import me.assetaid.deposit.repository.entity.DepositEntity;
+import me.assetaid.saving.repository.entity.SavingEntity;
+import me.assetaid.deposit.repository.DepositRepository;
+import me.assetaid.saving.repository.SavingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

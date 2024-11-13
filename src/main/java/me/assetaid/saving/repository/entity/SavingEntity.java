@@ -1,7 +1,8 @@
-package me.assetaid.entity;
+package me.assetaid.saving.repository.entity;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import me.assetaid.like.repository.entity.SavingBookmarkEntity;
+
 import java.util.List;
 
 @Entity
@@ -25,9 +26,8 @@ public class SavingEntity {
     private String contents;
 
     @OneToMany(mappedBy = "saving")
-    private List<BookmarkEntity> bookmarks;
+    private List<SavingBookmarkEntity> bookmarks;
 
-    // Getters and Setters
     public Integer getSavingId() { return savingId; }
     public void setSavingId(Integer savingId) { this.savingId = savingId; }
 
@@ -67,6 +67,6 @@ public class SavingEntity {
     public String getContents() { return contents; }
     public void setContents(String contents) { this.contents = contents; }
 
-    public List<BookmarkEntity> getBookmarks() { return bookmarks; }
-    public void setBookmarks(List<BookmarkEntity> bookmarks) { this.bookmarks = bookmarks; }
+    public List<SavingBookmarkEntity> getBookmarks() { return bookmarks; }
+    public void setBookmarks(List<SavingBookmarkEntity> bookmarks) { this.bookmarks = bookmarks; }
 }

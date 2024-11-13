@@ -20,7 +20,8 @@ public class PreferenceEntity {
     private String investmentStyle;
     private String job;
     private String knowledgeLevel;
-
+    public PreferenceEntity() {
+    }
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private UserEntity user;
