@@ -1,6 +1,6 @@
 package me.assetaid.preference.application;
 
-import me.assetaid.common.dto.CommonIdResponseDto;
+import me.assetaid.preference.application.dto.CommonIdResponseDto;
 import me.assetaid.preference.application.dto.CreatePreferenceRequestDTO;
 import me.assetaid.preference.repository.PreferenceRepository;
 import me.assetaid.preference.repository.entity.PreferenceEntity;
@@ -22,13 +22,8 @@ public class PreferenceService {
     // 선호도 정보 작성
     @Transactional
     public CommonIdResponseDto createPreference(CreatePreferenceRequestDTO dto) {
-        // DTO 검증: userId가 필수로 들어왔는지 확인
         Assert.notNull(dto.userId(), "User ID cannot be null");
-
-        // userId로 UserEntity 조회
         UserEntity user = userService.getUserById(dto.userId());
-
-        // PreferenceEntity 생성
         PreferenceEntity preference = new PreferenceEntity(
                 dto.availableAmount(),
                 dto.debt(),
@@ -40,10 +35,7 @@ public class PreferenceService {
                 user
         );
 
-        // Preference 저장
         PreferenceEntity savedPreference = preferenceRepository.save(preference);
-
-        // 저장된 Preference ID를 반환
         return new CommonIdResponseDto(savedPreference.getPreferenceId());
     }
 }

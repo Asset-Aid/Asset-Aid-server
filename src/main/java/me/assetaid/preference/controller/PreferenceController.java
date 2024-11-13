@@ -1,6 +1,6 @@
 package me.assetaid.preference.controller;
 
-import me.assetaid.common.dto.CommonIdResponseDto;
+import me.assetaid.preference.application.dto.CommonIdResponseDto;
 import me.assetaid.preference.application.PreferenceService;
 import me.assetaid.preference.application.dto.CreatePreferenceRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;

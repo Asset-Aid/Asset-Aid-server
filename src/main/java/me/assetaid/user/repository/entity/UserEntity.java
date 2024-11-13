@@ -3,13 +3,12 @@ package me.assetaid.user.repository.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import me.assetaid.entity.BookmarkEntity;
-import me.assetaid.entity.GoalEntity;
+import me.assetaid.goal.repository.entity.GoalEntity;
 import me.assetaid.entity.NotificationEntity;
 import me.assetaid.preference.repository.entity.PreferenceEntity;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "user")
