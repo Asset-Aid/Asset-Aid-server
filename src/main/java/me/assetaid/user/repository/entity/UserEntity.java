@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import me.assetaid.goal.repository.entity.GoalEntity;
 import me.assetaid.entity.NotificationEntity;
 import me.assetaid.preference.repository.entity.PreferenceEntity;
+import me.assetaid.like.repository.entity.CardBookmarkEntity;
+import me.assetaid.like.repository.entity.DepositBookmarkEntity;
+import me.assetaid.like.repository.entity.SavingBookmarkEntity;
 
 import java.util.Date;
 import java.util.List;
@@ -33,7 +36,15 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user")
     @JsonBackReference
-    private List<BookmarkEntity> bookmarks;
+    private List<CardBookmarkEntity> cardBookmarks;
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    private List<DepositBookmarkEntity> depositBookmarks;
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    private List<SavingBookmarkEntity> savingBookmarks;
 
     @OneToMany(mappedBy = "user")
     private List<NotificationEntity> notifications;
@@ -41,6 +52,7 @@ public class UserEntity {
     @OneToOne(mappedBy = "user")
     private PreferenceEntity preference;
 
+    // Getter and Setter methods
 
     public String getUserId() {
         return userId;
@@ -90,12 +102,28 @@ public class UserEntity {
         this.goals = goals;
     }
 
-    public List<BookmarkEntity> getBookmarks() {
-        return bookmarks;
+    public List<CardBookmarkEntity> getCardBookmarks() {
+        return cardBookmarks;
     }
 
-    public void setBookmarks(List<BookmarkEntity> bookmarks) {
-        this.bookmarks = bookmarks;
+    public void setCardBookmarks(List<CardBookmarkEntity> cardBookmarks) {
+        this.cardBookmarks = cardBookmarks;
+    }
+
+    public List<DepositBookmarkEntity> getDepositBookmarks() {
+        return depositBookmarks;
+    }
+
+    public void setDepositBookmarks(List<DepositBookmarkEntity> depositBookmarks) {
+        this.depositBookmarks = depositBookmarks;
+    }
+
+    public List<SavingBookmarkEntity> getSavingBookmarks() {
+        return savingBookmarks;
+    }
+
+    public void setSavingBookmarks(List<SavingBookmarkEntity> savingBookmarks) {
+        this.savingBookmarks = savingBookmarks;
     }
 
     public List<NotificationEntity> getNotifications() {
