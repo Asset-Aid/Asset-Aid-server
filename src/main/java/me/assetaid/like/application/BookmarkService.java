@@ -1,6 +1,7 @@
 package me.assetaid.like.application;
 
 import me.assetaid.like.application.dto.BookmarkDTO;
+import me.assetaid.like.application.dto.BookmarkResponseDTO;
 import me.assetaid.like.application.dto.CreateBookmarkRequestDTO;
 import me.assetaid.like.repository.CardBookmarkRepository;
 import me.assetaid.like.repository.DepositBookmarkRepository;
@@ -36,48 +37,63 @@ public class BookmarkService {
     private final SavingService savingService;
 
     @Transactional
-    public CardBookmarkEntity createCardBookmark(Integer cardId, CreateBookmarkRequestDTO dto) {
+    public BookmarkResponseDTO createCardBookmark(Integer cardId, CreateBookmarkRequestDTO dto) {
         UserEntity user = userService.getUserById(dto.getUserId());
         if (user == null) {
-            throw new IllegalArgumentException("User not found with ID: " + dto.getUserId());
+            return new BookmarkResponseDTO(false, "User not found with ID: " + dto.getUserId());
         }
 
         CardEntity card = cardService.getCardById(cardId);
+        if (card == null) {
+            return new BookmarkResponseDTO(false, "Card not found with ID: " + cardId);
+        }
+
         CardBookmarkEntity cardBookmark = new CardBookmarkEntity();
         cardBookmark.setUser(user);
         cardBookmark.setCard(card);
+        cardBookmarkRepository.save(cardBookmark);
 
-        return cardBookmarkRepository.save(cardBookmark);
+        return new BookmarkResponseDTO(true, "Card bookmark created successfully.");
     }
 
     @Transactional
-    public DepositBookmarkEntity createDepositBookmark(Integer depositId, CreateBookmarkRequestDTO dto) {
+    public BookmarkResponseDTO createDepositBookmark(Integer depositId, CreateBookmarkRequestDTO dto) {
         UserEntity user = userService.getUserById(dto.getUserId());
         if (user == null) {
-            throw new IllegalArgumentException("User not found with ID: " + dto.getUserId());
+            return new BookmarkResponseDTO(false, "User not found with ID: " + dto.getUserId());
         }
 
         DepositEntity deposit = depositService.getDepositById(depositId);
+        if (deposit == null) {
+            return new BookmarkResponseDTO(false, "Deposit not found with ID: " + depositId);
+        }
+
         DepositBookmarkEntity depositBookmark = new DepositBookmarkEntity();
         depositBookmark.setUser(user);
         depositBookmark.setDeposit(deposit);
+        depositBookmarkRepository.save(depositBookmark);
 
-        return depositBookmarkRepository.save(depositBookmark);
+        return new BookmarkResponseDTO(true, "Deposit bookmark created successfully.");
     }
 
     @Transactional
-    public SavingBookmarkEntity createSavingBookmark(Integer savingId, CreateBookmarkRequestDTO dto) {
+    public BookmarkResponseDTO createSavingBookmark(Integer savingId, CreateBookmarkRequestDTO dto) {
         UserEntity user = userService.getUserById(dto.getUserId());
         if (user == null) {
-            throw new IllegalArgumentException("User not found with ID: " + dto.getUserId());
+            return new BookmarkResponseDTO(false, "User not found with ID: " + dto.getUserId());
         }
 
         SavingEntity saving = savingService.getSavingById(savingId);
+        if (saving == null) {
+            return new BookmarkResponseDTO(false, "Saving not found with ID: " + savingId);
+        }
+
         SavingBookmarkEntity savingBookmark = new SavingBookmarkEntity();
         savingBookmark.setUser(user);
         savingBookmark.setSaving(saving);
+        savingBookmarkRepository.save(savingBookmark);
 
-        return savingBookmarkRepository.save(savingBookmark);
+        return new BookmarkResponseDTO(true, "Saving bookmark created successfully.");
     }
 
     public List<BookmarkDTO> getCardBookmarksForUser(String userId) {

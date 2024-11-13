@@ -1,9 +1,7 @@
 package me.assetaid.like.controller;
 
 import me.assetaid.like.application.BookmarkService;
-import me.assetaid.like.repository.entity.CardBookmarkEntity;
-import me.assetaid.like.repository.entity.DepositBookmarkEntity;
-import me.assetaid.like.repository.entity.SavingBookmarkEntity;
+import me.assetaid.like.application.dto.BookmarkResponseDTO;
 import me.assetaid.like.application.dto.CreateBookmarkRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,29 +19,29 @@ public class BookmarkController {
     }
 
     @PostMapping("/bookmark/cardLike")
-    public ResponseEntity<CardBookmarkEntity> createCardBookmark(
+    public ResponseEntity<BookmarkResponseDTO> createCardBookmark(
             @RequestParam Integer cardId,
             @RequestBody CreateBookmarkRequestDTO dto) {
 
-        CardBookmarkEntity cardBookmark = bookmarkService.createCardBookmark(cardId, dto);
-        return ResponseEntity.ok(cardBookmark);
+        BookmarkResponseDTO response = bookmarkService.createCardBookmark(cardId, dto);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/bookmark/depositLike")
-    public ResponseEntity<DepositBookmarkEntity> createDepositBookmark(
+    public ResponseEntity<BookmarkResponseDTO> createDepositBookmark(
             @RequestParam Integer depositId,
             @RequestBody CreateBookmarkRequestDTO dto) {
 
-        DepositBookmarkEntity depositBookmark = bookmarkService.createDepositBookmark(depositId, dto);
-        return ResponseEntity.ok(depositBookmark);
+        BookmarkResponseDTO response = bookmarkService.createDepositBookmark(depositId, dto);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/bookmark/savingLike")
-    public ResponseEntity<SavingBookmarkEntity> createSavingBookmark(
+    public ResponseEntity<BookmarkResponseDTO> createSavingBookmark(
             @RequestParam Integer savingId,
             @RequestBody CreateBookmarkRequestDTO dto) {
 
-        SavingBookmarkEntity savingBookmark = bookmarkService.createSavingBookmark(savingId, dto);
-        return ResponseEntity.ok(savingBookmark);
+        BookmarkResponseDTO response = bookmarkService.createSavingBookmark(savingId, dto);
+        return ResponseEntity.ok(response);
     }
 }

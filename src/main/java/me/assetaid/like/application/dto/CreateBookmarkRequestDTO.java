@@ -1,11 +1,17 @@
 package me.assetaid.like.application.dto;
 
-public class CreateBookmarkRequestDTO {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-    private final String userId;
-    private final Integer cardId;
-    private final Integer depositId;
-    private final Integer savingId;
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+public class CreateBookmarkRequestDTO {
+    private String userId;
+    private Integer cardId;
+    private Integer depositId;
+    private Integer savingId;
+
+    public CreateBookmarkRequestDTO() {}
 
     public CreateBookmarkRequestDTO(String userId, Integer cardId, Integer depositId, Integer savingId) {
         if (userId == null) {
@@ -16,6 +22,7 @@ public class CreateBookmarkRequestDTO {
         this.depositId = depositId;
         this.savingId = savingId;
     }
+
 
     public String getUserId() {
         return userId;
