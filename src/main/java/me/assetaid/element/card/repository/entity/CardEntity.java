@@ -22,10 +22,13 @@ public class CardEntity {
     private String url;
     private Integer annualFeeKor;
     private Integer annualFeeFor;
+    @Column(name = "bank_id")
+    private Integer bankId;
 
     private Long viewCount = 0L;
     @Column(length = 5000)
     private String content;
+    private String bankColor;
 
     @Column(length = 1000)
     private String cardImage;
@@ -134,4 +137,10 @@ public class CardEntity {
     public Long getViewCount() {return viewCount;}
 
     public void setViewCount(Long viewCount) {this.viewCount = viewCount;}
+
+    public String getBankColor() { return bankColor; }
+
+    public void setBankColor(String bankColor) { this.bankColor = bankColor; }
+    public Integer getBankId(){return bankId;}
+    public void setBankId(Integer bankId){this.bankId = bankId;}
 }

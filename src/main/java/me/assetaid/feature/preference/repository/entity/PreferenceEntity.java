@@ -4,6 +4,8 @@ import me.assetaid.element.user.repository.entity.UserEntity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "preference")
 public class PreferenceEntity {
@@ -19,13 +21,18 @@ public class PreferenceEntity {
     private String investmentStyle;
     private String job;
     private String knowledgeLevel;
+    private String bank;
+
+    @ElementCollection
+    @Column(name = "bank_id")
+    private List<Integer> bankId;
     public PreferenceEntity() {
     }
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private UserEntity user;
     public PreferenceEntity(Integer availableAmount, Integer debt, Integer salary, Integer spend,
-                            String investmentStyle, String job, String knowledgeLevel, UserEntity user) {
+                            String investmentStyle, String job, String knowledgeLevel, UserEntity user,List<Integer> bankId) {
         this.availableAmount = availableAmount;
         this.debt = debt;
         this.salary = salary;
@@ -34,6 +41,7 @@ public class PreferenceEntity {
         this.job = job;
         this.knowledgeLevel = knowledgeLevel;
         this.user = user;
+        this.bankId=bankId;
     }
 
     public Integer getPreferenceId() {
@@ -107,4 +115,10 @@ public class PreferenceEntity {
     public void setInvestmentStyle(String investmentStyle) {
         this.investmentStyle = investmentStyle;
     }
+
+    public String getBank(){return bank;}
+    public void setBank(String bank){this.bank = bank;}
+
+    public List<Integer> getBankId(){return bankId;}
+    public void setBankId(List<Integer> bankId){this.bankId = bankId;}
 }
