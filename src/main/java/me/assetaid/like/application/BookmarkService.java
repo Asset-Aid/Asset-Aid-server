@@ -3,6 +3,7 @@ package me.assetaid.like.application;
 import me.assetaid.like.application.dto.BookmarkDTO;
 import me.assetaid.like.application.dto.BookmarkResponseDTO;
 import me.assetaid.like.application.dto.CreateBookmarkRequestDTO;
+import me.assetaid.like.application.dto.DeleteBookmarkRequestDTO;
 import me.assetaid.like.repository.CardBookmarkRepository;
 import me.assetaid.like.repository.DepositBookmarkRepository;
 import me.assetaid.like.repository.SavingBookmarkRepository;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,12 +42,12 @@ public class BookmarkService {
     public BookmarkResponseDTO createCardBookmark(Integer cardId, CreateBookmarkRequestDTO dto) {
         UserEntity user = userService.getUserById(dto.getUserId());
         if (user == null) {
-            return new BookmarkResponseDTO(false, "User not found with ID: " + dto.getUserId());
+            return new BookmarkResponseDTO(false, "User not found with ID: " + dto.getUserId(), null, null, null);
         }
 
         CardEntity card = cardService.getCardById(cardId);
         if (card == null) {
-            return new BookmarkResponseDTO(false, "Card not found with ID: " + cardId);
+            return new BookmarkResponseDTO(false, "Card not found with ID: " + cardId, null, null, null);
         }
 
         CardBookmarkEntity cardBookmark = new CardBookmarkEntity();
@@ -53,19 +55,19 @@ public class BookmarkService {
         cardBookmark.setCard(card);
         cardBookmarkRepository.save(cardBookmark);
 
-        return new BookmarkResponseDTO(true, "Card bookmark created successfully.");
+        return new BookmarkResponseDTO(true, "Card bookmark created successfully.", cardBookmark.getCardBookmarkId(), null, null);
     }
 
     @Transactional
     public BookmarkResponseDTO createDepositBookmark(Integer depositId, CreateBookmarkRequestDTO dto) {
         UserEntity user = userService.getUserById(dto.getUserId());
         if (user == null) {
-            return new BookmarkResponseDTO(false, "User not found with ID: " + dto.getUserId());
+            return new BookmarkResponseDTO(false, "User not found with ID: " + dto.getUserId(), null, null, null);
         }
 
         DepositEntity deposit = depositService.getDepositById(depositId);
         if (deposit == null) {
-            return new BookmarkResponseDTO(false, "Deposit not found with ID: " + depositId);
+            return new BookmarkResponseDTO(false, "Deposit not found with ID: " + depositId, null, null, null);
         }
 
         DepositBookmarkEntity depositBookmark = new DepositBookmarkEntity();
@@ -73,19 +75,19 @@ public class BookmarkService {
         depositBookmark.setDeposit(deposit);
         depositBookmarkRepository.save(depositBookmark);
 
-        return new BookmarkResponseDTO(true, "Deposit bookmark created successfully.");
+        return new BookmarkResponseDTO(true, "Deposit bookmark created successfully.", null, depositBookmark.getDepositBookmarkId(), null);
     }
 
     @Transactional
     public BookmarkResponseDTO createSavingBookmark(Integer savingId, CreateBookmarkRequestDTO dto) {
         UserEntity user = userService.getUserById(dto.getUserId());
         if (user == null) {
-            return new BookmarkResponseDTO(false, "User not found with ID: " + dto.getUserId());
+            return new BookmarkResponseDTO(false, "User not found with ID: " + dto.getUserId(), null, null, null);
         }
 
         SavingEntity saving = savingService.getSavingById(savingId);
         if (saving == null) {
-            return new BookmarkResponseDTO(false, "Saving not found with ID: " + savingId);
+            return new BookmarkResponseDTO(false, "Saving not found with ID: " + savingId, null, null, null);
         }
 
         SavingBookmarkEntity savingBookmark = new SavingBookmarkEntity();
@@ -93,7 +95,52 @@ public class BookmarkService {
         savingBookmark.setSaving(saving);
         savingBookmarkRepository.save(savingBookmark);
 
-        return new BookmarkResponseDTO(true, "Saving bookmark created successfully.");
+        return new BookmarkResponseDTO(true, "Saving bookmark created successfully.", null, null, savingBookmark.getSavingBookmarkId());
+    }
+
+    @Transactional
+    public BookmarkResponseDTO deleteCardBookmark(DeleteBookmarkRequestDTO dto, Integer cardBookmarkId) {
+        UserEntity user = userService.getUserById(dto.getUserId());
+        if (user == null) {
+            return new BookmarkResponseDTO(false, "User not found with ID: " + dto.getUserId(), null, null, null);
+        }
+
+        Optional<CardBookmarkEntity> bookmark = cardBookmarkRepository.findById(cardBookmarkId);
+        if (bookmark.isPresent()) {
+            cardBookmarkRepository.delete(bookmark.get());
+            return new BookmarkResponseDTO(true, "Card bookmark deleted successfully.", cardBookmarkId, null, null);
+        }
+        return new BookmarkResponseDTO(false, "Card bookmark not found.", null, null, null);
+    }
+
+    @Transactional
+    public BookmarkResponseDTO deleteDepositBookmark(DeleteBookmarkRequestDTO dto, Integer depositBookmarkId) {
+        UserEntity user = userService.getUserById(dto.getUserId());
+        if (user == null) {
+            return new BookmarkResponseDTO(false, "User not found with ID: " + dto.getUserId(), null, null, null);
+        }
+
+        Optional<DepositBookmarkEntity> bookmark = depositBookmarkRepository.findById(depositBookmarkId);
+        if (bookmark.isPresent()) {
+            depositBookmarkRepository.delete(bookmark.get());
+            return new BookmarkResponseDTO(true, "Deposit bookmark deleted successfully.", null, depositBookmarkId, null);
+        }
+        return new BookmarkResponseDTO(false, "Deposit bookmark not found.", null, null, null);
+    }
+
+    @Transactional
+    public BookmarkResponseDTO deleteSavingBookmark(DeleteBookmarkRequestDTO dto, Integer savingBookmarkId) {
+        UserEntity user = userService.getUserById(dto.getUserId());
+        if (user == null) {
+            return new BookmarkResponseDTO(false, "User not found with ID: " + dto.getUserId(), null, null, null);
+        }
+
+        Optional<SavingBookmarkEntity> bookmark = savingBookmarkRepository.findById(savingBookmarkId);
+        if (bookmark.isPresent()) {
+            savingBookmarkRepository.delete(bookmark.get());
+            return new BookmarkResponseDTO(true, "Saving bookmark deleted successfully.", null, null, savingBookmarkId);
+        }
+        return new BookmarkResponseDTO(false, "Saving bookmark not found.", null, null, null);
     }
 
     public List<BookmarkDTO> getCardBookmarksForUser(String userId) {

@@ -9,7 +9,6 @@ public class BookmarkDTO {
     private String userId;
     private String nickname;
 
-    // 생성자
     public BookmarkDTO(Integer bookmarkId, String userId, String nickname) {
         this.bookmarkId = bookmarkId;
         this.userId = userId;
