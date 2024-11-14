@@ -1,6 +1,6 @@
 package me.assetaid;
 
-import me.assetaid.parsing.ApiParsing;
+import me.assetaid.prepared.parsing.ApiParsing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
