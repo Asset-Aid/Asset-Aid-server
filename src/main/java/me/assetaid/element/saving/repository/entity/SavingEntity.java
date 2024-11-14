@@ -25,6 +25,8 @@ public class SavingEntity {
     private Integer limitSaving;
     private String contents;
 
+    private Long viewCount = 0L;
+
     @OneToMany(mappedBy = "saving")
     private List<SavingBookmarkEntity> bookmarks;
 
@@ -69,4 +71,7 @@ public class SavingEntity {
 
     public List<SavingBookmarkEntity> getBookmarks() { return bookmarks; }
     public void setBookmarks(List<SavingBookmarkEntity> bookmarks) { this.bookmarks = bookmarks; }
+
+    public Long getViewCount() {return viewCount;}
+    public void setViewCount(Long viewCount) {this.viewCount = viewCount;}
 }

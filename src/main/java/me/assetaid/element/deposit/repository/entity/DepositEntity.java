@@ -19,11 +19,13 @@ public class DepositEntity {
     private String endAt;
     private String depositInfo;
     private String intRateType;
-    private Integer intRate;
+    private Double intRate;
     private Integer saveTerm;
     private String saveTermType;
     private Integer limitDeposit;
     private String contents;
+
+    private Long viewCount = 0L;
 
     @OneToMany(mappedBy = "deposit")
     private List<DepositBookmarkEntity> bookmarks;
@@ -53,8 +55,8 @@ public class DepositEntity {
     public String getIntRateType() { return intRateType; }
     public void setIntRateType(String intRateType) { this.intRateType = intRateType; }
 
-    public Integer getIntRate() { return intRate; }
-    public void setIntRate(Integer intRate) { this.intRate = intRate; }
+    public Double getIntRate() { return intRate; }
+    public void setIntRate(Double intRate) { this.intRate = intRate; }
 
     public Integer getSaveTerm() { return saveTerm; }
     public void setSaveTerm(Integer saveTerm) { this.saveTerm = saveTerm; }
@@ -70,4 +72,8 @@ public class DepositEntity {
 
     public List<DepositBookmarkEntity> getBookmarks() { return bookmarks; }
     public void setBookmarks(List<DepositBookmarkEntity> bookmarks) { this.bookmarks = bookmarks; }
+
+    public Long getViewCount() {return viewCount;}
+
+    public void setViewCount(Long viewCount) {this.viewCount = viewCount;}
 }

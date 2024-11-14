@@ -140,7 +140,7 @@ public class ApiParsing {
             deposit.setBank(node.path("kor_co_nm").asText());
             deposit.setDepositName(node.path("fin_prdt_nm").asText());
             deposit.setJoinWay(node.path("join_way").asText());
-            deposit.setIntRate(node.path("mtrt_int").asInt());
+            deposit.setIntRate(node.path("mtrt_int").asDouble());
             deposit.setContents(node.path("spcl_cnd").asText() + " " + node.path("join_member").asText() + " " + node.path("etc_note").asText());
             deposit.setLimitDeposit(node.path("max_limit").asInt());
             deposit.setStartAt(node.path("dcls_strt_day").asText());
