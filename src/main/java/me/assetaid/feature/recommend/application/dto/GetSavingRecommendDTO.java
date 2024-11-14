@@ -1,31 +1,22 @@
 package me.assetaid.feature.recommend.application.dto;
 
+import java.util.List;
+
 public class GetSavingRecommendDTO {
     private Integer savingId;
     private String savingName;
-    private String bank;
+    private List<Integer> bankId;
     private String bankColor;
 
-    public GetSavingRecommendDTO(Integer savingId, String savingName, String bank, String bankColor) {
+    public GetSavingRecommendDTO(Integer savingId, String savingName, List<Integer> bankId, String bankColor) {
         this.savingId = savingId;
         this.savingName = savingName;
-        this.bank = bank;
+        this.bankId = bankId;
         this.bankColor = bankColor;
     }
 
-    public Integer getSavingId() {
-        return savingId;
-    }
-
-    public String getSavingName() {
-        return savingName;
-    }
-
-    public String getBank() {
-        return bank;
-    }
-
-    public String getBankColor() {
-        return bankColor;
-    }
+    public Integer getSavingId() { return savingId; }
+    public String getSavingName() { return savingName; }
+    public List<Integer> getBankId() { return bankId; }
+    public String getBankColor() { return bankColor; }
 }

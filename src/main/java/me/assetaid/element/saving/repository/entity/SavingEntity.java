@@ -26,6 +26,8 @@ public class SavingEntity {
     private String contents;
     private String bankColor;
     private Long viewCount = 0L;
+    @Column(name = "bank_id")
+    private Integer bankId;
 
     @OneToMany(mappedBy = "saving")
     private List<SavingBookmarkEntity> bookmarks;
@@ -78,4 +80,7 @@ public class SavingEntity {
     public String getBankColor() { return bankColor; }
 
     public void setBankColor(String bankColor) { this.bankColor = bankColor; }
+
+    public Integer getBankId(){return bankId;}
+    public void setBankId(Integer bankId){this.bankId = bankId;}
 }

@@ -2,6 +2,8 @@ package me.assetaid.feature.recommend.controller;
 
 import me.assetaid.feature.recommend.application.RecommendService;
 import me.assetaid.feature.recommend.application.dto.GetDepositRecommendDTO;
+import me.assetaid.feature.recommend.application.dto.GetCardRecommendDTO;
+import me.assetaid.feature.recommend.application.dto.GetSavingRecommendDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,26 @@ public class RecommendController {
             return ResponseEntity.notFound().build();
         } else {
             return ResponseEntity.ok(topDeposits);
+        }
+    }
+
+    @GetMapping("/card/{userId}")
+    public ResponseEntity<List<GetCardRecommendDTO>> getTop10Cards(@PathVariable String userId) {
+        List<GetCardRecommendDTO> topCards = recommendService.getTop10CardsForPreferredBank(userId);
+        if (topCards.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(topCards);
+        }
+    }
+
+    @GetMapping("/saving/{userId}")
+    public ResponseEntity<List<GetSavingRecommendDTO>> getTop10Savings(@PathVariable String userId) {
+        List<GetSavingRecommendDTO> topSavings = recommendService.getTop10SavingsForPreferredBank(userId);
+        if (topSavings.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(topSavings);
         }
     }
 }

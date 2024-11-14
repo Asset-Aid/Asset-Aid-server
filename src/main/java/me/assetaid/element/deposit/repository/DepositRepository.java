@@ -7,6 +7,6 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 public interface DepositRepository extends JpaRepository<DepositEntity, Integer> {
     List<DepositEntity> findTop3ByOrderByViewCountDesc();
-    List<DepositEntity> findByBankIdOrderByViewCountDesc(Integer bankId, Pageable pageable);
+    List<DepositEntity> findByBankIdInOrderByViewCountDesc(List<Integer> bankId, Pageable pageable);
 }
 
