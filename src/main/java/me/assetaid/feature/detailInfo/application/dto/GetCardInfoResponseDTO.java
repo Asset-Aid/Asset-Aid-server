@@ -3,17 +3,17 @@ package me.assetaid.feature.detailInfo.application.dto;
 public class GetCardInfoResponseDTO {
 
     private Integer cardId;
-    private String annualFeeFor;
-    private String annualFeeKor;
+    private Integer annualFeeFor;
+    private Integer annualFeeKor;
     private Integer cardLimit;
-    private String cardType;
+    private Integer cardType;
     private String cardImage;
     private String bank;
     private String benefit;
     private String cardName;
 
-    public GetCardInfoResponseDTO(Integer cardId, String annualFeeFor, String annualFeeKor, Integer cardLimit,
-                                  String cardType, String cardImage, String bank, String benefit, String cardName) {
+    public GetCardInfoResponseDTO(Integer cardId, Integer annualFeeFor, Integer annualFeeKor, Integer cardLimit,
+                                  Integer cardType, String cardImage, String bank, String benefit, String cardName) {
         this.cardId = cardId;
         this.annualFeeFor = annualFeeFor;
         this.annualFeeKor = annualFeeKor;
@@ -29,11 +29,11 @@ public class GetCardInfoResponseDTO {
         return cardId;
     }
 
-    public String getAnnualFeeFor() {
+    public Integer getAnnualFeeFor() {
         return annualFeeFor;
     }
 
-    public String getAnnualFeeKor() {
+    public Integer getAnnualFeeKor() {
         return annualFeeKor;
     }
 
@@ -41,7 +41,7 @@ public class GetCardInfoResponseDTO {
         return cardLimit;
     }
 
-    public String getCardType() {
+    public Integer getCardType() {
         return cardType;
     }
 

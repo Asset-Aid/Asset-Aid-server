@@ -25,6 +25,8 @@ public class DepositEntity {
     private Integer limitDeposit;
     private String contents;
 
+    private Long viewCount = 0L;
+
     @OneToMany(mappedBy = "deposit")
     private List<DepositBookmarkEntity> bookmarks;
 
@@ -70,4 +72,8 @@ public class DepositEntity {
 
     public List<DepositBookmarkEntity> getBookmarks() { return bookmarks; }
     public void setBookmarks(List<DepositBookmarkEntity> bookmarks) { this.bookmarks = bookmarks; }
+
+    public Long getViewCount() {return viewCount;}
+
+    public void setViewCount(Long viewCount) {this.viewCount = viewCount;}
 }
