@@ -23,6 +23,7 @@ public class CardEntity {
     private Integer annualFeeKor;
     private Integer annualFeeFor;
 
+    private Long viewCount = 0L;
     @Column(length = 5000)
     private String content;
 
@@ -129,4 +130,8 @@ public class CardEntity {
     public void setCardImage(String cardImage) {
         this.cardImage = cardImage;
     }
+
+    public Long getViewCount() {return viewCount;}
+
+    public void setViewCount(Long viewCount) {this.viewCount = viewCount;}
 }

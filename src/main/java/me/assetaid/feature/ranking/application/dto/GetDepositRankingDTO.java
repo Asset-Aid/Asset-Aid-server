@@ -4,10 +4,12 @@ public class GetDepositRankingDTO {
 
     private String depositName;
     private String bank;
+    private Integer depositId;
 
-    public GetDepositRankingDTO(String depositName, String bank) {
+    public GetDepositRankingDTO(Integer depositId,String depositName, String bank) {
         this.depositName = depositName;
         this.bank = bank;
+        this.depositId = depositId;
     }
 
     public String getDepositName() {
@@ -25,4 +27,12 @@ public class GetDepositRankingDTO {
     public void setBank(String bank) {
         this.bank = bank;
     }
+    public Integer getDepositId() {
+        return depositId;
+    }
+
+    public void setDepositId(Integer depositId) {
+        this.depositId = depositId;
+    }
+
 }
