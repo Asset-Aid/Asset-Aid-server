@@ -14,6 +14,7 @@ public record CreatePreferenceRequestDTO(
         Integer spend,
         String investmentStyle,
         String job,
-        String knowledgeLevel
+        String knowledgeLevel,
+        Integer bankId
 ) {
 }

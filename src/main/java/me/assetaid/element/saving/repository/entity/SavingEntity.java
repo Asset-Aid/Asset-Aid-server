@@ -24,7 +24,7 @@ public class SavingEntity {
     private String saveTermType;
     private Integer limitSaving;
     private String contents;
-
+    private String bankColor;
     private Long viewCount = 0L;
 
     @OneToMany(mappedBy = "saving")
@@ -74,4 +74,8 @@ public class SavingEntity {
 
     public Long getViewCount() {return viewCount;}
     public void setViewCount(Long viewCount) {this.viewCount = viewCount;}
+
+    public String getBankColor() { return bankColor; }
+
+    public void setBankColor(String bankColor) { this.bankColor = bankColor; }
 }

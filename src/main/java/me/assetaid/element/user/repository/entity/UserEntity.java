@@ -52,8 +52,6 @@ public class UserEntity {
     @OneToOne(mappedBy = "user")
     private PreferenceEntity preference;
 
-    // Getter and Setter methods
-
     public String getUserId() {
         return userId;
     }

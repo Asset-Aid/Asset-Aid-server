@@ -18,7 +18,6 @@ public class PreferenceController {
         this.preferenceService = preferenceService;
     }
 
-    // 선호도 정보 작성
     @PostMapping("/check")
     public ResponseEntity<CommonIdResponseDto> createPreference(@RequestBody CreatePreferenceRequestDTO dto) {
         CommonIdResponseDto response = preferenceService.createPreference(dto);

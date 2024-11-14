@@ -14,6 +14,8 @@ public class DepositEntity {
 
     private String depositName;
     private String bank;
+    @Column(name = "bank_id")
+    private Integer bankId;
     private String joinWay;
     private String startAt;
     private String endAt;
@@ -26,11 +28,10 @@ public class DepositEntity {
     private String contents;
 
     private Long viewCount = 0L;
-
+    private String bankColor;
     @OneToMany(mappedBy = "deposit")
     private List<DepositBookmarkEntity> bookmarks;
 
-    // Getters and Setters
     public Integer getDepositId() { return depositId; }
     public void setDepositId(Integer depositId) { this.depositId = depositId; }
 
@@ -76,4 +77,11 @@ public class DepositEntity {
     public Long getViewCount() {return viewCount;}
 
     public void setViewCount(Long viewCount) {this.viewCount = viewCount;}
+
+    public String getBankColor() { return bankColor; }
+
+    public void setBankColor(String bankColor) { this.bankColor = bankColor; }
+
+    public Integer getBankId(){return bankId;}
+    public void setBankId(Integer bankId){this.bankId = bankId;}
 }

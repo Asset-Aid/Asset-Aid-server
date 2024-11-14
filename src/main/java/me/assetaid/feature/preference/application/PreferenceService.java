@@ -19,7 +19,6 @@ public class PreferenceService {
     private final PreferenceRepository preferenceRepository;
     private final UserService userService;
 
-    // 선호도 정보 작성
     @Transactional
     public CommonIdResponseDto createPreference(CreatePreferenceRequestDTO dto) {
         Assert.notNull(dto.userId(), "User ID cannot be null");
@@ -32,7 +31,8 @@ public class PreferenceService {
                 dto.investmentStyle(),
                 dto.job(),
                 dto.knowledgeLevel(),
-                user
+                user,
+                dto.bankId()
         );
 
         PreferenceEntity savedPreference = preferenceRepository.save(preference);

@@ -26,6 +26,7 @@ public class CardEntity {
     private Long viewCount = 0L;
     @Column(length = 5000)
     private String content;
+    private String bankColor;
 
     @Column(length = 1000)
     private String cardImage;
@@ -134,4 +135,8 @@ public class CardEntity {
     public Long getViewCount() {return viewCount;}
 
     public void setViewCount(Long viewCount) {this.viewCount = viewCount;}
+
+    public String getBankColor() { return bankColor; }
+
+    public void setBankColor(String bankColor) { this.bankColor = bankColor; }
 }
