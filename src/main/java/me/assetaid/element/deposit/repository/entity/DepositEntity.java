@@ -19,7 +19,7 @@ public class DepositEntity {
     private String endAt;
     private String depositInfo;
     private String intRateType;
-    private Integer intRate;
+    private Double intRate;
     private Integer saveTerm;
     private String saveTermType;
     private Integer limitDeposit;
@@ -53,8 +53,8 @@ public class DepositEntity {
     public String getIntRateType() { return intRateType; }
     public void setIntRateType(String intRateType) { this.intRateType = intRateType; }
 
-    public Integer getIntRate() { return intRate; }
-    public void setIntRate(Integer intRate) { this.intRate = intRate; }
+    public Double getIntRate() { return intRate; }
+    public void setIntRate(Double intRate) { this.intRate = intRate; }
 
     public Integer getSaveTerm() { return saveTerm; }
     public void setSaveTerm(Integer saveTerm) { this.saveTerm = saveTerm; }
