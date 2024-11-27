@@ -16,5 +16,6 @@ public class UserController {
     public void userSave(@RequestBody UserEntity user) {
         userRepository.save(user);
     }
+
 }
 
