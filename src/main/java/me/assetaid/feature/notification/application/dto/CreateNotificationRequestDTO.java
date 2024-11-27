@@ -1,12 +1,15 @@
 package me.assetaid.feature.notification.application.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 public class CreateNotificationRequestDTO {
-    private String userId; // String으로 변경
-    private String goalId;
+
+    private String userId;  // 사용자 ID
+    private Long goalId;    // 목표 ID
+    private String cycle;   // 알림 주기 (WEEKLY 또는 MONTHLY)
 }
+
 

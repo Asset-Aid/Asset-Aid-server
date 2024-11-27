@@ -1,51 +1,17 @@
 package me.assetaid.feature.notification.application.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@AllArgsConstructor
 public class NotificationResponseDTO {
-    private Integer id;
-    private String userId;
-    private String goalId;
+    private String id;         // String 타입
+    private Integer userId;    // Integer 타입
+    private Long goalId;       // Long 타입
     private LocalDateTime createdAt;
-
-    public NotificationResponseDTO(Integer id, String userId, String goalId, LocalDateTime createdAt) {
-        this.id = id;
-        this.userId = userId;
-        this.goalId = goalId;
-        this.createdAt = createdAt;
-    }
-
-    // Getters and Setters
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getGoalId() {
-        return goalId;
-    }
-
-    public void setGoalId(String goalId) {
-        this.goalId = goalId;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }
-

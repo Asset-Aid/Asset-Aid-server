@@ -1,56 +1,32 @@
 package me.assetaid.feature.notification.repository.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "notification")
+@Getter
+@Setter
 public class NotificationLogEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "notification_id", unique = true, nullable = false)
-    private Integer id;
+    private Long id; // 알림 ID
 
     @Column(name = "user_id", nullable = false)
-    private String userId;
-
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private String userId; // 사용자 ID (String)
 
     @Column(name = "goal_id", nullable = false)
-    private String goalId;
+    private Long goalId; // 목표 ID (Long)
 
-    // Getters and Setters
-    public Integer getId() {
-        return id;
-    }
+    @Column(name = "cycle", nullable = false)
+    private String cycle; // 주기 ("WEEKLY", "MONTHLY")
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getGoalId() {
-        return goalId;
-    }
-
-    public void setGoalId(String goalId) {
-        this.goalId = goalId;
-    }
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt; // 알림 생성일
 }
+

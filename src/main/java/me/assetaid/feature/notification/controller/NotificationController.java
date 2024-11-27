@@ -1,32 +1,28 @@
 package me.assetaid.feature.notification.controller;
 
+import lombok.RequiredArgsConstructor;
 import me.assetaid.feature.notification.application.NotificationService;
 import me.assetaid.feature.notification.application.dto.CreateNotificationRequestDTO;
-import me.assetaid.feature.notification.application.dto.NotificationResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/notifications")
+@RequestMapping("/notifications")
+@RequiredArgsConstructor
 public class NotificationController {
 
     private final NotificationService notificationService;
 
-    @Autowired
-    public NotificationController(NotificationService notificationService) {
-        this.notificationService = notificationService;
-    }
-
     @PostMapping
-    public NotificationResponseDTO createNotification(@RequestBody CreateNotificationRequestDTO requestDTO) {
-        return notificationService.createNotification(requestDTO);
-    }
-
-    @GetMapping("/{userId}")
-    public List<NotificationResponseDTO> getNotificationsByUserId(@PathVariable String userId) {
-        return notificationService.getNotificationsByUserId(userId);
+    public ResponseEntity<?> createNotification(@RequestBody CreateNotificationRequestDTO requestDTO) {
+        // CreateNotificationRequestDTO에서 필요한 값을 추출하여 Service로 전달
+        return ResponseEntity.ok(
+                notificationService.createNotification(
+                        requestDTO.getUserId(), // String userId
+                        requestDTO.getGoalId(), // Long goalId
+                        requestDTO.getCycle()   // String cycle
+                )
+        );
     }
 }
 
