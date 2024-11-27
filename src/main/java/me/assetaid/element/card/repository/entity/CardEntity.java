@@ -5,7 +5,7 @@ import me.assetaid.feature.like.repository.entity.CardBookmarkEntity;
 
 import java.util.List;
 
-@Entity
+@Entity(name = "CardEntityElement")
 @Table(name = "card")
 public class CardEntity {
     @Id
