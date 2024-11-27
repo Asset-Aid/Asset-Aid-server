@@ -3,7 +3,8 @@ package me.assetaid.feature.search.deposit.repository.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-@Entity
+
+@Entity(name = "SearchDepositEntity")
 public class DepositEntity {
     @Id
     private Long id;                 // 기본 키
