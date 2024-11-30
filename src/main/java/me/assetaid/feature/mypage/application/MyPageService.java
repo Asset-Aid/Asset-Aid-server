@@ -3,10 +3,8 @@ package me.assetaid.feature.mypage.application;
 import me.assetaid.feature.like.repository.entity.CardBookmarkEntity;
 import me.assetaid.feature.like.repository.entity.DepositBookmarkEntity;
 import me.assetaid.feature.like.repository.entity.SavingBookmarkEntity;
-import me.assetaid.feature.mypage.application.dto.GetCardLikeInfoResponseDTO;
-import me.assetaid.feature.mypage.application.dto.GetDepositLikeInfoResponseDTO;
-import me.assetaid.feature.mypage.application.dto.GetSavingLikeInfoResponseDTO;
-import me.assetaid.feature.mypage.application.dto.GetMyInfoResponseDTO;
+import me.assetaid.feature.mypage.application.dto.*;
+import me.assetaid.feature.preference.repository.entity.PreferenceEntity;
 import me.assetaid.element.user.repository.UserRepository;
 import me.assetaid.element.user.repository.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,15 +41,12 @@ public class MyPageService {
             UserEntity user = userEntityOptional.get();
 
             List<GetCardLikeInfoResponseDTO.CardBookmarkDTO> bookmarks = user.getCardBookmarks().stream()
-                    .map(cardBookmark -> {
-                        CardBookmarkEntity bookmarkEntity = cardBookmark;
-                        return new GetCardLikeInfoResponseDTO.CardBookmarkDTO(
-                                bookmarkEntity.getCard().getCardId(),
-                                bookmarkEntity.getCard().getBank(),
-                                bookmarkEntity.getCard().getCardName(),
-                                bookmarkEntity.getCard().getBenefit()
-                        );
-                    })
+                    .map(cardBookmark -> new GetCardLikeInfoResponseDTO.CardBookmarkDTO(
+                            cardBookmark.getCard().getCardId(),
+                            cardBookmark.getCard().getBank(),
+                            cardBookmark.getCard().getCardName(),
+                            cardBookmark.getCard().getBenefit()
+                    ))
                     .collect(Collectors.toList());
 
             return new GetCardLikeInfoResponseDTO(bookmarks);
@@ -67,15 +62,12 @@ public class MyPageService {
             UserEntity user = userEntityOptional.get();
 
             List<GetDepositLikeInfoResponseDTO.DepositBookmarkDTO> bookmarks = user.getDepositBookmarks().stream()
-                    .map(depositBookmark -> {
-                        DepositBookmarkEntity bookmarkEntity = depositBookmark;
-                        return new GetDepositLikeInfoResponseDTO.DepositBookmarkDTO(
-                                bookmarkEntity.getDeposit().getDepositId(),
-                                bookmarkEntity.getDeposit().getBank(),
-                                bookmarkEntity.getDeposit().getDepositName(),
-                                bookmarkEntity.getDeposit().getContents()
-                        );
-                    })
+                    .map(depositBookmark -> new GetDepositLikeInfoResponseDTO.DepositBookmarkDTO(
+                            depositBookmark.getDeposit().getDepositId(),
+                            depositBookmark.getDeposit().getBank(),
+                            depositBookmark.getDeposit().getDepositName(),
+                            depositBookmark.getDeposit().getContents()
+                    ))
                     .collect(Collectors.toList());
 
             return new GetDepositLikeInfoResponseDTO(bookmarks);
@@ -91,20 +83,43 @@ public class MyPageService {
             UserEntity user = userEntityOptional.get();
 
             List<GetSavingLikeInfoResponseDTO.SavingBookmarkDTO> bookmarks = user.getSavingBookmarks().stream()
-                    .map(savingBookmark -> {
-                        SavingBookmarkEntity bookmarkEntity = savingBookmark;
-                        return new GetSavingLikeInfoResponseDTO.SavingBookmarkDTO(
-                                bookmarkEntity.getSaving().getSavingId(),
-                                bookmarkEntity.getSaving().getBank(),
-                                bookmarkEntity.getSaving().getSavingName(),
-                                bookmarkEntity.getSaving().getContents()
-                        );
-                    })
+                    .map(savingBookmark -> new GetSavingLikeInfoResponseDTO.SavingBookmarkDTO(
+                            savingBookmark.getSaving().getSavingId(),
+                            savingBookmark.getSaving().getBank(),
+                            savingBookmark.getSaving().getSavingName(),
+                            savingBookmark.getSaving().getContents()
+                    ))
                     .collect(Collectors.toList());
 
             return new GetSavingLikeInfoResponseDTO(bookmarks);
         } else {
             return new GetSavingLikeInfoResponseDTO(List.of());
         }
+    }
+
+    // 수정된 메서드: 사용자 선호 정보 가져오기
+    public GetPreferenceResponseDTO getUserPreference(String userId) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+
+        if (userEntityOptional.isPresent()) {
+            UserEntity user = userEntityOptional.get();
+            PreferenceEntity preference = user.getPreference();
+
+            if (preference != null) {
+                return new GetPreferenceResponseDTO(
+                        preference.getAvailableAmount(),
+                        preference.getBank(),
+                        preference.getBankId(),
+                        preference.getDebt(),
+                        preference.getInvestmentStyle(),
+                        preference.getJob(),
+                        preference.getKnowledgeLevel(),
+                        preference.getSalary(),
+                        preference.getSpend(),
+                        user.getUserId()
+                );
+            }
+        }
+        return null;
     }
 }
