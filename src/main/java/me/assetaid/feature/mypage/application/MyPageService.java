@@ -77,6 +77,28 @@ public class MyPageService {
             return new GetDepositLikeInfoResponseDTO(List.of());
         }
     }
+    public boolean updateUserProfile(String userId, UpdateMyInfoRequestDTO updateRequest) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+
+        if (userEntityOptional.isPresent()) {
+            UserEntity userEntity = userEntityOptional.get();
+
+
+            if (updateRequest.getPassword() != null) {
+                userEntity.setPassword(updateRequest.getPassword());
+            }
+            if (updateRequest.getNickname() != null) {
+                userEntity.setNickname(updateRequest.getNickname());
+            }
+            if (updateRequest.getBirthday() != null) {
+                userEntity.setBirthday(updateRequest.getBirthday());
+            }
+            userRepository.save(userEntity);
+            return true;
+        }
+
+        return false;
+    }
 
     public GetSavingLikeInfoResponseDTO getSavingBookmarks(String userId) {
         Optional<UserEntity> userEntityOptional = userRepository.findById(userId);

@@ -5,6 +5,7 @@ import me.assetaid.feature.mypage.application.MyPageService;
 import me.assetaid.feature.mypage.application.dto.GetMyInfoResponseDTO;
 import me.assetaid.feature.mypage.application.dto.GetPreferenceResponseDTO;
 import me.assetaid.feature.mypage.application.dto.DeleteGoalRequestDTO;
+import me.assetaid.feature.mypage.application.dto.UpdateMyInfoRequestDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +48,18 @@ public class MyPageController {
         boolean isDeleted = myPageService.deleteGoal(goalId, userId);
         if (isDeleted) {
             return ResponseEntity.ok("Goal deleted successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PatchMapping("/profile/modify/{userId}")
+    public ResponseEntity<?> updateUserProfile(
+            @PathVariable("userId") String userId,
+            @RequestBody UpdateMyInfoRequestDTO updateRequest) {
+
+        boolean isUpdated = myPageService.updateUserProfile(userId, updateRequest);
+        if (isUpdated) {
+            return ResponseEntity.ok("Profile updated successfully");
         } else {
             return ResponseEntity.notFound().build();
         }
