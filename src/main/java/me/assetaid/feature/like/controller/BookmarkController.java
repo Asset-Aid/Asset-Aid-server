@@ -7,22 +7,25 @@ import me.assetaid.feature.like.application.dto.DeleteBookmarkRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("recommend")
 public class BookmarkController {
-
+    private static final Logger logger = LoggerFactory.getLogger(BookmarkController.class);
     private final BookmarkService bookmarkService;
 
     @Autowired
     public BookmarkController(BookmarkService bookmarkService) {
         this.bookmarkService = bookmarkService;
     }
-
     @PostMapping("/bookmark/cardLike")
     public ResponseEntity<BookmarkResponseDTO> createCardBookmark(
             @RequestParam Integer cardId,
             @RequestBody CreateBookmarkRequestDTO dto) {
+        logger.info("Received cardId: {}", cardId);
+        logger.info("Received userId: {}", dto.getUserId());
 
         BookmarkResponseDTO response = bookmarkService.createCardBookmark(cardId, dto);
         return ResponseEntity.ok(response);
