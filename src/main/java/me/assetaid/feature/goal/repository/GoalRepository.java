@@ -14,4 +14,5 @@ public interface GoalRepository extends JpaRepository<GoalEntity, Long> {
 
     @Query("SELECT COUNT(g) FROM GoalEntity g WHERE g.goalType = 'long'")
     long countByLongTermGoals();
+    Optional<GoalEntity> findByGoalIdAndUser_UserId(Integer goalId, String userId);
 }

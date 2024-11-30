@@ -1,5 +1,6 @@
 package me.assetaid.feature.mypage.application;
 
+import me.assetaid.feature.goal.repository.entity.GoalEntity;
 import me.assetaid.feature.like.repository.entity.CardBookmarkEntity;
 import me.assetaid.feature.like.repository.entity.DepositBookmarkEntity;
 import me.assetaid.feature.like.repository.entity.SavingBookmarkEntity;
@@ -7,6 +8,7 @@ import me.assetaid.feature.mypage.application.dto.*;
 import me.assetaid.feature.preference.repository.entity.PreferenceEntity;
 import me.assetaid.element.user.repository.UserRepository;
 import me.assetaid.element.user.repository.entity.UserEntity;
+import me.assetaid.feature.goal.repository.GoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,8 +98,19 @@ public class MyPageService {
             return new GetSavingLikeInfoResponseDTO(List.of());
         }
     }
+    @Autowired
+    private GoalRepository goalRepository;
 
-    // 수정된 메서드: 사용자 선호 정보 가져오기
+    public boolean deleteGoal(Integer goalId, String userId) {
+        Optional<GoalEntity> goalEntity = goalRepository.findByGoalIdAndUser_UserId(goalId, userId);
+
+        if (goalEntity.isPresent()) {
+            goalRepository.delete(goalEntity.get());
+            return true;
+        }
+        return false;
+    }
+
     public GetPreferenceResponseDTO getUserPreference(String userId) {
         Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
 

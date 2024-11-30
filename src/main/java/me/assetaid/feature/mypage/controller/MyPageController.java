@@ -1,18 +1,16 @@
 package me.assetaid.feature.mypage.controller;
 
+import me.assetaid.feature.like.controller.BookmarkController;
 import me.assetaid.feature.mypage.application.MyPageService;
 import me.assetaid.feature.mypage.application.dto.GetMyInfoResponseDTO;
 import me.assetaid.feature.mypage.application.dto.GetPreferenceResponseDTO;
+import me.assetaid.feature.mypage.application.dto.DeleteGoalRequestDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/mypage")
 public class MyPageController {
-
     private final MyPageService myPageService;
 
     public MyPageController(MyPageService myPageService) {
@@ -36,6 +34,19 @@ public class MyPageController {
 
         if (userPreference != null) {
             return ResponseEntity.ok(userPreference);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/goal/delete")
+    public ResponseEntity<?> deleteGoal(
+            @RequestParam("goalId") Integer goalId,
+            @RequestParam("userId") String userId) {
+
+        boolean isDeleted = myPageService.deleteGoal(goalId, userId);
+        if (isDeleted) {
+            return ResponseEntity.ok("Goal deleted successfully");
         } else {
             return ResponseEntity.notFound().build();
         }

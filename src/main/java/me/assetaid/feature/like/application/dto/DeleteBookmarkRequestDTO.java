@@ -1,10 +1,12 @@
 package me.assetaid.feature.like.application.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class DeleteBookmarkRequestDTO {
+    @JsonProperty("user_id")
     private String userId;
     private Integer cardId;
     private Integer depositId;
