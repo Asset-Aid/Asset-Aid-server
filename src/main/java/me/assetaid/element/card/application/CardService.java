@@ -1,7 +1,7 @@
 package me.assetaid.element.card.application;
 
-import me.assetaid.element.card.repository.entity.CardEntity;
 import me.assetaid.element.card.repository.CardRepository;
+import me.assetaid.element.card.repository.entity.CardEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

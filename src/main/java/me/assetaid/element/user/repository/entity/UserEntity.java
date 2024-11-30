@@ -14,13 +14,14 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String id;
 
     @Column(nullable = false)
@@ -31,27 +32,28 @@ public class UserEntity {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<GoalEntity> goals;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<CardBookmarkEntity> cardBookmarks;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<DepositBookmarkEntity> depositBookmarks;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<SavingBookmarkEntity> savingBookmarks;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<NotificationEntity> notifications;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private PreferenceEntity preference;
 
+    // Getter와 Setter
     public String getUserId() {
         return userId;
     }
