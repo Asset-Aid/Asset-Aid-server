@@ -2,10 +2,7 @@ package me.assetaid.feature.mypage.controller;
 
 import me.assetaid.feature.like.controller.BookmarkController;
 import me.assetaid.feature.mypage.application.MyPageService;
-import me.assetaid.feature.mypage.application.dto.GetMyInfoResponseDTO;
-import me.assetaid.feature.mypage.application.dto.GetPreferenceResponseDTO;
-import me.assetaid.feature.mypage.application.dto.DeleteGoalRequestDTO;
-import me.assetaid.feature.mypage.application.dto.UpdateMyInfoRequestDTO;
+import me.assetaid.feature.mypage.application.dto.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,6 +57,19 @@ public class MyPageController {
         boolean isUpdated = myPageService.updateUserProfile(userId, updateRequest);
         if (isUpdated) {
             return ResponseEntity.ok("Profile updated successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PatchMapping("/preference/modify/{userId}")
+    public ResponseEntity<?> updateUserPreference(
+            @PathVariable("userId") String userId,
+            @RequestBody UpdatePreferenceRequestDTO updatePreferenceRequestDTO) {
+
+        boolean isUpdated = myPageService.updateUserPreference(userId, updatePreferenceRequestDTO);
+
+        if (isUpdated) {
+            return ResponseEntity.ok("User preference updated successfully.");
         } else {
             return ResponseEntity.notFound().build();
         }

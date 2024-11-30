@@ -77,28 +77,7 @@ public class MyPageService {
             return new GetDepositLikeInfoResponseDTO(List.of());
         }
     }
-    public boolean updateUserProfile(String userId, UpdateMyInfoRequestDTO updateRequest) {
-        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
 
-        if (userEntityOptional.isPresent()) {
-            UserEntity userEntity = userEntityOptional.get();
-
-
-            if (updateRequest.getPassword() != null) {
-                userEntity.setPassword(updateRequest.getPassword());
-            }
-            if (updateRequest.getNickname() != null) {
-                userEntity.setNickname(updateRequest.getNickname());
-            }
-            if (updateRequest.getBirthday() != null) {
-                userEntity.setBirthday(updateRequest.getBirthday());
-            }
-            userRepository.save(userEntity);
-            return true;
-        }
-
-        return false;
-    }
 
     public GetSavingLikeInfoResponseDTO getSavingBookmarks(String userId) {
         Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
@@ -156,5 +135,64 @@ public class MyPageService {
             }
         }
         return null;
+    }
+    public boolean updateUserProfile(String userId, UpdateMyInfoRequestDTO updateRequest) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+
+        if (userEntityOptional.isPresent()) {
+            UserEntity userEntity = userEntityOptional.get();
+
+
+            if (updateRequest.getPassword() != null) {
+                userEntity.setPassword(updateRequest.getPassword());
+            }
+            if (updateRequest.getNickname() != null) {
+                userEntity.setNickname(updateRequest.getNickname());
+            }
+            if (updateRequest.getBirthday() != null) {
+                userEntity.setBirthday(updateRequest.getBirthday());
+            }
+            userRepository.save(userEntity);
+            return true;
+        }
+
+        return false;
+    }
+    public boolean updateUserPreference(String userId, UpdatePreferenceRequestDTO updatePreferenceRequestDTO) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+
+        if (userEntityOptional.isPresent()) {
+            UserEntity user = userEntityOptional.get();
+            PreferenceEntity preference = user.getPreference();
+
+            if (preference != null) {
+                if (updatePreferenceRequestDTO.getAvailableAmount() != null) {
+                    preference.setAvailableAmount(updatePreferenceRequestDTO.getAvailableAmount());
+                }
+                if (updatePreferenceRequestDTO.getDebt() != null) {
+                    preference.setDebt(updatePreferenceRequestDTO.getDebt());
+                }
+                if (updatePreferenceRequestDTO.getInvestmentStyle() != null) {
+                    preference.setInvestmentStyle(updatePreferenceRequestDTO.getInvestmentStyle());
+                }
+                if (updatePreferenceRequestDTO.getJob() != null) {
+                    preference.setJob(updatePreferenceRequestDTO.getJob());
+                }
+                if (updatePreferenceRequestDTO.getKnowledgeLevel() != null) {
+                    preference.setKnowledgeLevel(updatePreferenceRequestDTO.getKnowledgeLevel());
+                }
+                if (updatePreferenceRequestDTO.getSalary() != null) {
+                    preference.setSalary(updatePreferenceRequestDTO.getSalary());
+                }
+                if (updatePreferenceRequestDTO.getSpend() != null) {
+                    preference.setSpend(updatePreferenceRequestDTO.getSpend());
+                }
+
+                userRepository.save(user);
+                return true;
+            }
+        }
+
+        return false;
     }
 }
