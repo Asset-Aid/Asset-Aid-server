@@ -84,15 +84,15 @@ public class UserService {
         if (password.length() < 8) {
             throw new RuntimeException("Password must be at least 8 characters long");
         }
-        // 예: 대문자 포함 여부 체크
+        //대문자 포함 여부 체크
         if (!password.matches(".*[A-Z].*")) {
             throw new RuntimeException("Password must contain at least one uppercase letter");
         }
-        // 예: 숫자 포함 여부 체크
+        //숫자 포함 여부 체크
         if (!password.matches(".*\\d.*")) {
             throw new RuntimeException("Password must contain at least one digit");
         }
-        // 예: 특수문자 포함 여부 체크
+        //특수문자 포함 여부 체크
         if (!password.matches(".*[!@#$%^&*].*")) {
             throw new RuntimeException("Password must contain at least one special character");
         }

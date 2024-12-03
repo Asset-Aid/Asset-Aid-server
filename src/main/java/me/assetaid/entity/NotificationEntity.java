@@ -18,7 +18,7 @@ public class NotificationEntity {
     private UserEntity user;
 
     private LocalDateTime createdAt;  // LocalDateTime으로 변경
-    private String goalId;
+    private Long goalId;
     private String cycle;
 
     // userId 필드를 추가하고 getter, setter 메서드를 작성합니다.
@@ -42,11 +42,11 @@ public class NotificationEntity {
         return createdAt;
     }
 
-    public String getGoalId() {
+    public Long getGoalId() {
         return goalId;
     }
 
-    public void setGoalId(String goalId) {
+    public void setGoalId(Long goalId) {
         this.goalId = goalId;
     }
 

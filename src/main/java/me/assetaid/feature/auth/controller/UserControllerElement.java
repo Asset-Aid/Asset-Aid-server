@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-public class UserController {
+public class UserControllerElement {
 
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserControllerElement(UserService userService) {
         this.userService = userService;
     }
 
