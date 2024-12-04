@@ -36,7 +36,7 @@ public class GoalEntity {
         return goalId;
     }
 
-    public void setGoalId(Long goalId) {
+    public void getGoalId(Long goalId) {
         this.goalId = goalId;
     }
 
@@ -44,47 +44,24 @@ public class GoalEntity {
         return goalType;
     }
 
-    public void setGoalType(String goalType) {
-        this.goalType = goalType;
-    }
-
     public String getPurpose() {
         return purpose;
-    }
-
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
     }
 
     public Integer getHopeAmount() {
         return hopeAmount;
     }
 
-    public void setHopeAmount(Integer hopeAmount) {
-        this.hopeAmount = hopeAmount;
-    }
-
     public Date getDueDate() {
         return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
     }
 
     public String getCycle() {
         return cycle;
     }
 
-    public void setCycle(String cycle) {
-        this.cycle = cycle;
-    }
-
     public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
 }
